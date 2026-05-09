@@ -2,64 +2,36 @@
 
 This is my own practice notebook based on what I learned in the IBM Data Analyst Capstone Project on Coursera.
 
-## Goal
+## What this practice notebook covers
 
-Practice basic data cleaning and normalization using survey compensation data.
+- Loading a survey dataset with pandas
+- Checking duplicate rows
+- Removing duplicate rows
+- Checking missing values in `CodingActivities`
+- Filling missing `CodingActivities` values using forward-fill
+- Identifying compensation-related columns
+- Cleaning valid salary values for normalization
+- Applying Min-Max normalization to `ConvertedCompYearly`
+- Applying Z-score normalization to `ConvertedCompYearly`
+- Creating clearer histograms after removing extreme salary outliers only for visualization
 
-## What this notebook does
+## Important note about the charts
 
-- Loads a CSV dataset with pandas
-- Checks duplicate rows
-- Removes duplicate rows if any exist
-- Checks missing values in `CodingActivities`
-- Fills `CodingActivities` with forward-fill as a practice method
-- Prepares `ConvertedCompYearly` for normalization
-- Applies Min-Max scaling to yearly compensation
-- Applies Z-score normalization to yearly compensation
-- Uses histograms to compare the original and normalized distributions
+The original salary chart can look unreadable because a few very large salary values stretch the x-axis.
 
-## Dataset
+To make the distribution easier to read, the notebook removes the extreme top 1% salary values only in the plotting copy of the data.
 
-The notebook uses the survey dataset link provided in the course lab.
+The original dataset is not changed by this visualization step.
 
-Main column used:
+## Key learning
 
-- `ConvertedCompYearly` — yearly compensation converted into a common format
+Normalization changes the scale of numerical data so values are easier to compare.
 
-## Key concepts practiced
-
-### Duplicate checking
-
-`duplicated().sum()` counts repeated rows.  
-`drop_duplicates()` removes repeated rows.
-
-### Missing value checking
-
-`isna().sum()` counts empty values in a column.
-
-### Forward-fill practice
-
-`ffill()` fills a missing value using the value from the row above.
-
-This is used here only as a simple practice method.
-
-### Min-Max scaling
-
-Min-Max scaling changes values into a range between 0 and 1.
-
-### Z-score normalization
+Min-Max normalization converts values into a 0 to 1 range.
 
 Z-score normalization shows how far each value is from the average.
 
-## Important limitations
-
-- Forward-fill is only a practice shortcut and may not be suitable for real survey analysis.
-- Missing values in `ConvertedCompYearly` must be handled before normalization.
-- Salary data can contain extreme outliers.
-- Min-Max scaling can be strongly affected by very large outliers.
-- This is a learning notebook, not a full professional compensation analysis.
-
 ## Files
 
-- `normalizing_data_practice.ipynb` — main practice notebook
-- `requirements.txt` — Python libraries used
+- `normalizing_data_practice.ipynb` — practice notebook
+- `requirements.txt` — Python libraries needed to run the notebook
