@@ -1,4 +1,4 @@
-# 13 – Finding How The Data Is Distributed
+# 13 – Finding How the Data Is Distributed
 
 This is my own practice notebook based on what I learned in the IBM Data Analyst Capstone Project on Coursera.
 
@@ -6,27 +6,23 @@ This is my own practice notebook based on what I learned in the IBM Data Analyst
 
 This notebook practises checking how data is distributed.
 
-Distribution means understanding how values are spread across a column, which answers are common, which answers are rare, and whether there are visible patterns in the data.
+Distribution means understanding how values are spread across columns, which values appear most often, and whether there are visible patterns in the data.
 
 ## Main skills practised
 
 - loading a CSV dataset with pandas
-- previewing the dataset
-- checking column names and data types
+- examining dataframe structure
 - checking missing values
-- filling selected missing values
-- counting category values with `value_counts()`
+- creating a consistent cleaned dataframe
+- analysing category distributions with `value_counts()`
 - visualising job satisfaction distribution
-- using KDE plots and pie charts
-- splitting multi-answer programming language columns
-- counting programming languages with `Counter`
-- comparing languages people have worked with vs want to work with
-- visualising remote work distribution
-- converting text experience values into numbers
+- comparing programming languages people have used and want to use
+- analysing overall remote work distribution
+- converting professional coding experience into numeric values
 - calculating Pearson correlation
-- comparing employment and education with `pd.crosstab()`
-- creating stacked bar charts
-- exporting a CSV file
+- comparing employment type and education level with crosstab
+- creating a readable stacked bar chart using top employment categories
+- exporting the cleaned dataframe as a CSV file
 
 ## Main Python tools used
 
@@ -40,44 +36,56 @@ Distribution means understanding how values are spread across a column, which an
 - `dtypes`
 - `info()`
 - `isnull().sum()`
-- `dropna()`
+- `copy()`
 - `fillna()`
 - `value_counts()`
-- `astype(float)`
+- `astype()`
 - `sns.kdeplot()`
 - `plt.pie()`
-- `str.split(';')`
-- `sum()`
+- `str.split()`
+- `Counter()`
 - `pd.DataFrame()`
 - `sort_values()`
 - `plot(kind='bar')`
 - `replace()`
 - `pd.to_numeric()`
-- `corr(method='pearson')`
+- `dropna()`
+- `corr()`
 - `pd.crosstab()`
+- `isin()`
 - `to_csv()`
 
-## Important notes
+## Important correction
 
-This is a practice notebook, not a final professional analysis.
+The original lab workflow created `df_cleaned = df.dropna()` but then mostly continued using `df`.
 
-Important limitations from the lab workflow:
+In this practice version, the workflow is corrected:
 
-- `df_cleaned = df.dropna()` is created, but the later analysis continues mainly with `df`.
-- Missing `RemoteWork` values are filled with `Unknown`.
-- Missing `JobSat` values are filled with `Not answered`, then later removed before numeric satisfaction analysis.
-- The remote work section says region in the instruction, but the code shows overall remote work distribution, not region-based distribution.
-- The correlation section changes `df` by removing rows where `JobSat` is `Not answered`.
-- Because `df` is changed during the correlation step, later crosstab and export steps use the filtered version of `df`.
-- The final CSV saves `df`, not `df_cleaned`.
-- Correlation does not prove cause and effect.
+- `df` stays as the original loaded dataset.
+- `df_cleaned` is created with `df.copy()`.
+- missing `RemoteWork` values are filled in `df_cleaned` with `Unknown`.
+- missing `JobSat` values are filled in `df_cleaned` with `Not answered`.
+- distribution analysis uses `df_cleaned`.
+- correlation uses a separate `corr_df` so the main dataframe is not damaged.
+- the education/employment full crosstab keeps all categories.
+- the education/employment chart uses only the top 5 employment types so it is readable.
+- the final CSV exports `df_cleaned`.
+
+## Important warnings
+
+- `Not answered` and `Unknown` are clear labels for missing values, but they should be interpreted carefully.
+- The RemoteWork chart shows overall distribution, not distribution by region.
+- Programming language trends are based on survey respondents only.
+- The pie chart is included for practice, but it can be harder to read than a bar chart when there are many categories.
+- Pearson correlation shows relationship strength, but it does not prove cause and effect.
+- Stacked bar charts can become messy when category labels are long or combined.
 
 ## Files in this folder
 
+- `README.md`
 - `finding_data_distribution_practice.ipynb`
 - `requirements.txt`
-- `README.md`
 
 ## Very short memory line
 
-load data → inspect structure → check missing values → count distributions → visualise JobSat → compare languages → check remote work → calculate correlation → compare education/employment → export CSV
+load data → inspect structure → clean consistently → count distributions → visualise JobSat → compare languages → check RemoteWork → calculate correlation safely → compare education/employment → export `df_cleaned`
